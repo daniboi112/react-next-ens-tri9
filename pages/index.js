@@ -24,6 +24,7 @@ export default function Home() {
     // If the address has an ENS set the ENS or else just set the address
     if (_ens) {
       setENS(_ens);
+      setAddress(address); // *just set them both for display purposes*
     } else {
       setAddress(address);
     }
@@ -112,10 +113,26 @@ export default function Home() {
       <div className={styles.main}>
         <div>
           <h1 className={styles.title}>
-            Welcome to LearnWeb3 Punks {ens ? ens : address}!
+            Welcome to LearnWeb3
           </h1>
+          <div className={styles.bolddescription}>
+            ENS - Ethereum Name Service
+          </div>
+          <div className={styles.description} styles="">
+            "DNS" aka ENS name lookup :
+          </div>
+          <div className={styles.bolddescription} styles="">
+            {ens ? ens : address}
+          </div>
+          
           <div className={styles.description}>
-            Its an NFT collection for LearnWeb3 Punks.
+            "IP Address" aka Crypto/Hash Address : 
+          </div>
+          <div className={styles.bolddescription}>
+            { address }
+          </div>
+          <div className={styles.description}>
+            Its an NFT collection for LearnWeb3.
           </div>
           {renderButton()}
         </div>

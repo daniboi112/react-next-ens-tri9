@@ -43,15 +43,48 @@ export default function Home() {
     const provider = await web3ModalRef.current.connect();
     const web3Provider = new providers.Web3Provider(provider);
 
+    
+  
+    // export type Network = {
+    //   name: string,
+    //   chainId: number,
+    //   ensAddress?: string,
+    //   _defaultProvider?: (providers: any, options?: any) => any
+    // } 
+    // // Object returned by web3Provider.getNetwork() below
+    // // *** COOL COOL COOL ***
+    // // object destructuring yields variables from class/type object
+    // const { chainId, name, ensAddress } = await web3Provider.getNetwork();
+    // window.alert(`Connected to network ${name} with chainId: ${chainId} at ${ensAddress}`); 
+    // //string interpolation
+    // // *** NOT COOL *** 
+    // const network = await web3Provider.getNetwork();
+    // window.alert("Connected to network " + network.name + " with chainId: " + network.chainId + " at " + network.ensAddress);
+    
+
+
+
+
     // If user is not connected to the Goerli network, let them know and throw an error
-    const { chainId } = await web3Provider.getNetwork();
+
+    const { chainId, name, ensAddress } = await web3Provider.getNetwork();
     if (chainId !== 5) {
-      window.alert("Change the network to Goerli");
+      window.alert("Change the network to Goerli " + chainId);
       throw new Error("Change network to Goerli");
     }
+    //window.alert(`Connected to network ${name} with chainId: ${chainId} at ${ensAddress}`);
+
+    // const network = await web3Provider.getNetwork();
+    // if (network.chainId !== 5) {
+    //   window.alert("Change the network to Goerli " + network.chainId);
+    //   throw new Error("Change network to Goerli");
+    // }
+    // window.alert(`***NOT COOL*** Connected to network ${network.name} with chainId: ${network.chainId} at ${network.ensAddress}`);
+    
     const signer = web3Provider.getSigner();
     // Get the address associated to the signer which is connected to  MetaMask
     const address = await signer.getAddress();
+    window.alert(`Connected to network ${name} with chainId: ${chainId} at ${ensAddress} <<>> ${address}`);
     // Calls the function to set the ENS or Address
     await setENSOrAddress(address, web3Provider);
     return signer;
